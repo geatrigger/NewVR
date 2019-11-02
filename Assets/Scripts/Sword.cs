@@ -8,20 +8,51 @@ public class Sword : MonoBehaviour
     SteamVR_Input_Sources hand;
     public SteamVR_Action_Vibration vibration;
     public GameObject rightController;
-    float maxAngle = 10f;
+    float maxRot = 1f, maxPos = 0.1f;
+    Vector3 prevPosition, tmpPosition;
+    Quaternion prevRotation, tmpRotation;
+    bool isGrapped;
+    private IEnumerator coroutine;
+    private IEnumerator restart(float waitTime)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(waitTime);
+            print("WaitAndPrint " + Time.time);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
         gameObject.transform.position = rightController.transform.position;
         gameObject.transform.rotation = rightController.transform.rotation * Quaternion.Euler(90, 0, 0);
+        prevPosition = gameObject.transform.position;
+        prevRotation = gameObject.transform.rotation;
         hand = SteamVR_Input_Sources.RightHand;
+        isGrapped = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position = rightController.transform.position;
-        gameObject.transform.rotation = rightController.transform.rotation * Quaternion.Euler(90, 0, 0);
+        if (isGrapped == true)
+        {
+            //rigidbody에서 gravity false
+            //kinetic true
+            gameObject.transform.position = rightController.transform.position;
+            gameObject.transform.rotation = rightController.transform.rotation * Quaternion.Euler(90, 0, 0);
+            Vector3 deltaPos = tmpPosition - prevPosition;
+            //Quaternion deltaRot = gameObject.transform.rotation *= tmpRotation * Quaternion.Inverse(prevRotation);
+            if (deltaPos.magnitude > maxPos)
+            {
+                isGrapped = false;
+            }
+        }
+        else
+        {
+            //rigidbody에서 gravity true
+            //kinetic false
+        }
         //최대속도를 유지해서 따라가는 것
         /*
         Quaternion angle = gameObject.transform.rotation * Quaternion.Euler(-90, 0, 0) * Quaternion.Inverse(rightController.transform.rotation);
