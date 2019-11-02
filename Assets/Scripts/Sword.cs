@@ -8,25 +8,22 @@ public class Sword : MonoBehaviour
     SteamVR_Input_Sources hand;
     public SteamVR_Action_Vibration vibration;
     public GameObject rightController;
-    float maxRot = 1f, maxPos = 0.1f;
-    Vector3 prevPosition, tmpPosition;
+    float maxRot = 1f, maxPos = 0.05f;
+    Vector3 prevPosition;
     Quaternion prevRotation, tmpRotation;
     bool isGrapped;
     private IEnumerator coroutine;
     private Rigidbody rigid;
     private IEnumerator restart(float waitTime)
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(waitTime);
-            gameObject.transform.position = rightController.transform.position;
-            gameObject.transform.rotation = rightController.transform.rotation * Quaternion.Euler(90, 0, 0);
-            prevPosition = gameObject.transform.position;
-            prevRotation = gameObject.transform.rotation;
-            rigid.isKinematic = true;
-            rigid.useGravity = false;
-            isGrapped = true;
-        }
+        yield return new WaitForSeconds(waitTime);
+        gameObject.transform.position = rightController.transform.position;
+        gameObject.transform.rotation = rightController.transform.rotation * Quaternion.Euler(90, 0, 0);
+        rigid.isKinematic = true;
+        isGrapped = true;
+        rigid.useGravity = false;
+        coroutine = restart(2.0f);
+
     }
     // Start is called before the first frame update
     void Start()
@@ -38,7 +35,7 @@ public class Sword : MonoBehaviour
         hand = SteamVR_Input_Sources.RightHand;
         isGrapped = true;
         rigid = gameObject.GetComponent<Rigidbody>();
-        coroutine = restart(20.0f);
+        coroutine = restart(2.0f);
     }
 
     // Update is called once per frame
@@ -48,7 +45,7 @@ public class Sword : MonoBehaviour
         {
             gameObject.transform.position = rightController.transform.position;
             gameObject.transform.rotation = rightController.transform.rotation * Quaternion.Euler(90, 0, 0);
-            Vector3 deltaPos = tmpPosition - prevPosition;
+            Vector3 deltaPos = gameObject.transform.position - prevPosition;
             //Quaternion deltaRot = gameObject.transform.rotation *= tmpRotation * Quaternion.Inverse(prevRotation);
             if (deltaPos.magnitude > maxPos)
             {
@@ -60,6 +57,11 @@ public class Sword : MonoBehaviour
             }
             prevPosition = gameObject.transform.position;
             prevRotation = gameObject.transform.rotation;
+        }
+        else;
+        {
+            prevPosition = rightController.transform.position;
+            prevRotation = rightController.transform.rotation * Quaternion.Euler(90, 0, 0);
         }
         //최대속도를 유지해서 따라가는 것
         /*
