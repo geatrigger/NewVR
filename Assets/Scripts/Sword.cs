@@ -13,12 +13,19 @@ public class Sword : MonoBehaviour
     Quaternion prevRotation, tmpRotation;
     bool isGrapped;
     private IEnumerator coroutine;
+    private Rigidbody rigid;
     private IEnumerator restart(float waitTime)
     {
         while (true)
         {
             yield return new WaitForSeconds(waitTime);
-            print("WaitAndPrint " + Time.time);
+            gameObject.transform.position = rightController.transform.position;
+            gameObject.transform.rotation = rightController.transform.rotation * Quaternion.Euler(90, 0, 0);
+            prevPosition = gameObject.transform.position;
+            prevRotation = gameObject.transform.rotation;
+            rigid.isKinematic = true;
+            rigid.useGravity = false;
+            isGrapped = true;
         }
     }
     // Start is called before the first frame update
@@ -30,6 +37,8 @@ public class Sword : MonoBehaviour
         prevRotation = gameObject.transform.rotation;
         hand = SteamVR_Input_Sources.RightHand;
         isGrapped = true;
+        rigid = gameObject.GetComponent<Rigidbody>();
+        coroutine = restart(20.0f);
     }
 
     // Update is called once per frame
@@ -37,21 +46,20 @@ public class Sword : MonoBehaviour
     {
         if (isGrapped == true)
         {
-            //rigidbody에서 gravity false
-            //kinetic true
             gameObject.transform.position = rightController.transform.position;
             gameObject.transform.rotation = rightController.transform.rotation * Quaternion.Euler(90, 0, 0);
             Vector3 deltaPos = tmpPosition - prevPosition;
             //Quaternion deltaRot = gameObject.transform.rotation *= tmpRotation * Quaternion.Inverse(prevRotation);
             if (deltaPos.magnitude > maxPos)
             {
+                Debug.Log("deltaPos : " + deltaPos.magnitude);
                 isGrapped = false;
+                rigid.isKinematic = false;
+                rigid.useGravity = true;
+                StartCoroutine(coroutine);
             }
-        }
-        else
-        {
-            //rigidbody에서 gravity true
-            //kinetic false
+            prevPosition = gameObject.transform.position;
+            prevRotation = gameObject.transform.rotation;
         }
         //최대속도를 유지해서 따라가는 것
         /*
