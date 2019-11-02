@@ -22,7 +22,7 @@ public class getWeapon : MonoBehaviour
         {
             return;
         }
-        collidingObject = col.gameObject;
+        collidingObject = col.transform.parent.gameObject;
     }
 
     // Update is called once per frame
@@ -65,8 +65,8 @@ public class getWeapon : MonoBehaviour
     {
         objectInHand = collidingObject;
         collidingObject = null;
-
         var joint = AddFixedJoint();
+        joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
     }
 
     private FixedJoint AddFixedJoint()
@@ -86,7 +86,6 @@ public class getWeapon : MonoBehaviour
             objectInHand.GetComponent<Rigidbody>().velocity = controllerPose.GetVelocity();
             objectInHand.GetComponent<Rigidbody>().angularVelocity = controllerPose.GetAngularVelocity();
         }
-
         objectInHand = null;
     }
     public bool GetGrab()
