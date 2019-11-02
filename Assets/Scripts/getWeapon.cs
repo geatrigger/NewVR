@@ -18,7 +18,7 @@ public class getWeapon : MonoBehaviour
 
     private void SetCollidingObject(Collider col)
     {
-        if(collidingObject || !col.GetComponent<Rigidbody>())
+        if(collidingObject || !col.GetComponent<Rigidbody>() || col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             return;
         }
