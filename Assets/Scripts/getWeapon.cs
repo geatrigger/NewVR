@@ -63,6 +63,8 @@ public class getWeapon : MonoBehaviour
     }
     private void GrabObject()
     {
+        collidingObject.transform.position = gameObject.transform.position;
+        collidingObject.transform.rotation = gameObject.transform.rotation * Quaternion.Euler(90, 0, 0);
         objectInHand = collidingObject;
         collidingObject = null;
         var joint = AddFixedJoint();
