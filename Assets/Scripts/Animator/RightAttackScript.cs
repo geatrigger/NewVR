@@ -26,7 +26,7 @@ public class RightAttackScript : StateMachineBehaviour
         if (waitTime >= maxWaitTime)
         {
             waitTime = 0.0f;
-            animator.SetTrigger("Move");
+            animator.SetTrigger("Guard");
         }
     }
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

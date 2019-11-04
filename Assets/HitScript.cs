@@ -2,38 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeftAttactScript : StateMachineBehaviour
+public class HitScript : StateMachineBehaviour
 {
-    float waitTime = 0.0f;
-    public float maxWaitTime = 1.05f;
-    float fake;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        fake = Random.Range(0.0f, 1.0f);
+        int hp = animator.GetInteger("HP");
+        hp--;
+        animator.SetInteger("HP", hp);
+        if (hp <= 0)
+        {
+            animator.SetTrigger("Death");
+        }
+        else
+        {
+            animator.SetTrigger("Guard");
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        waitTime += Time.deltaTime;
-        if(fake < 0.2f)
-        {
-            waitTime = 0.0f;
-            animator.SetInteger("Attack", 2);
-        }
-
-
-
-        if (waitTime >= maxWaitTime)
-        {
-            
-            waitTime = 0.0f;
-            animator.SetTrigger("Guard");
-            
-
-        }
-    }
+    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

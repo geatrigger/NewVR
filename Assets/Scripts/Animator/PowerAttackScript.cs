@@ -19,7 +19,7 @@ public class PowerAttackScript : StateMachineBehaviour
         if (waitTime >= maxWaitTime)
         {
             waitTime = 0.0f;
-            animator.SetTrigger("Move");
+            animator.SetTrigger("Guard");
         }
     }
 
