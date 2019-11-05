@@ -18,6 +18,7 @@ public class Hand : MonoBehaviour
     bool isGrapped;
     private IEnumerator coroutine;
     private Rigidbody rigid;
+    bool canCollision;
     private IEnumerator restart(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
@@ -25,10 +26,15 @@ public class Hand : MonoBehaviour
         gameObject.transform.rotation = controller.transform.rotation * Quaternion.Euler(90, 0, 0);
         weaponObject.transform.position = gameObject.transform.position;
         weaponObject.transform.rotation = gameObject.transform.rotation;
-        rigid.isKinematic = true;
+        //rigid.isKinematic = true;
         isGrapped = true;
         rigid.useGravity = false;
         coroutine = restart(2.0f);
+    }
+    private IEnumerator setCollisionTime(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        canCollision = true;
     }
     // Start is called before the first frame update
     void Start()
@@ -62,6 +68,7 @@ public class Hand : MonoBehaviour
         prevRotation = gameObject.transform.rotation;
         weaponObject.transform.position = gameObject.transform.position;
         weaponObject.transform.rotation = gameObject.transform.rotation;
+        canCollision = true;
     }
 
     // Update is called once per frame
@@ -107,14 +114,25 @@ public class Hand : MonoBehaviour
         */
     }
 
-    public void childOnTriggerEnter(Collider collision)
+    public void childOnCollisionEnter(Collision collision)
     {
         Debug.Log("trigger");
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && canCollision)
         {
-            collision.gameObject.GetComponentInParent<Animator>().SetTrigger("Damage");
-            vibration.Execute(0, 0.2f, 100, 1f, hand);
-            Debug.Log("Sword trigger");
+            if (collision.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Guard"))
+            {
+                Debug.Log("guard!");
+            }
+            else {
+                collision.gameObject.GetComponentInParent<Animator>().SetTrigger("Hit");
+                vibration.Execute(0, 0.2f, 100, 1f, hand);
+                Debug.Log("Sword trigger");
+                canCollision = false;
+                StartCoroutine(setCollisionTime(4.0f));
+            }
+        }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Weapon"))
+        {
         }
     }
 }

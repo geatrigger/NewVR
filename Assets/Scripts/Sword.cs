@@ -6,8 +6,8 @@ using Valve.VR;
 public class Sword : MonoBehaviour
 {
     public Hand hand;
-    void OnTriggerEnter(Collider collision)
+    void OnCollisionEnter(Collision collision)
     {
-        hand.childOnTriggerEnter(collision);
+        hand.childOnCollisionEnter(collision);
     }
 }

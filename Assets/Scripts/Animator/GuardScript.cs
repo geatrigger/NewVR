@@ -28,6 +28,7 @@ public class GuardScript : StateMachineBehaviour
         {
             //sword의 위치에 기반해서 반대 방향으로 공격
             //sword가 업스니 대충 랜덤하게따
+            waitTime = 0.0f;
             animator.SetInteger("Attack", attackdirection);
 
         }
