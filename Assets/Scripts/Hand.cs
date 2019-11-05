@@ -133,6 +133,10 @@ public class Hand : MonoBehaviour
         }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Weapon"))
         {
+            isGrapped = false;
+            rigid.isKinematic = false;
+            rigid.useGravity = true;
+            StartCoroutine(coroutine);
         }
     }
 }
