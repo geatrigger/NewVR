@@ -36,18 +36,18 @@ public class Hand : MonoBehaviour
         hand = isRight ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand;
         isGrapped = true;
         coroutine = restart(2.0f);
-        string leftHandWeapon = "sword1";
-        string rightHandWeapon = "sword2";
+        string leftHandWeapon = getWeapon.getLeftHandWeapon();
+        string rightHandWeapon = getWeapon.getRightHandWeapon();
         weapon = isRight ? leftHandWeapon : rightHandWeapon;
         switch (weapon)
         {
-            case "":
-                weaponObject = Instantiate(weapons[0]);
+            case "Sabre":
+                weaponObject = Instantiate(weapons[3]);
                 break;
-            case "sword1":
+            case "Broadsword":
                 weaponObject = Instantiate(weapons[1]);
                 break;
-            case "sword2":
+            case "Rapier":
                 weaponObject = Instantiate(weapons[2]);
                 break;
             default:

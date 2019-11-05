@@ -40,6 +40,8 @@ public class getWeapon : MonoBehaviour
 
     private void SetCollidingObject(Collider col)
     {
+        if (col.gameObject.layer == LayerMask.NameToLayer("Env"))
+            return;
         if(collidingObject || !col.transform.parent.GetComponent<Rigidbody>() || col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             return;

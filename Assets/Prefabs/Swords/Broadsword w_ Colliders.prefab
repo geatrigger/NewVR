@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 4054014567080517722}
   - component: {fileID: 4054014567079387802}
   - component: {fileID: 7160852250304463842}
+  - component: {fileID: 8331413765849537005}
   m_Layer: 0
   m_Name: Broadsword w_ Colliders
   m_TagString: Untagged
@@ -230,3 +231,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8331413765849537005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4054014567081327710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8273b8085af805446ad54c63186ec115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hand: {fileID: 0}

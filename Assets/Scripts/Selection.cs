@@ -16,6 +16,9 @@ public class Selection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(nameLH);
+        Debug.Log(nameRH);
+        Debug.Log(time);
         time += Time.deltaTime;
         nameLH = getWeapon.getLeftHandWeapon();
         nameRH = getWeapon.getRightHandWeapon();
@@ -32,7 +35,7 @@ public class Selection : MonoBehaviour
 
     void StartingFight()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("playerSword");
     }
     
 }
