@@ -6,6 +6,28 @@ using Valve.VR;
 public class getWeapon : MonoBehaviour
 {
     // Start is called before the first frame update
+    private static string leftHandWeapon;
+    private static string rightHandWeapon;
+    public static void setLeftHandWeapon(string LHW)
+    {
+        leftHandWeapon = LHW;
+        return;
+    }
+
+    public static void setRightHandWeapon(string RHW)
+    {
+        rightHandWeapon = RHW;
+        return;
+    }
+    public static string getLeftHandWeapon()
+    {
+        return leftHandWeapon;
+    }
+
+    public static string getRightHandWeapon()
+    {
+        return rightHandWeapon;
+    }
     void Start()
     {
         
@@ -28,7 +50,7 @@ public class getWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(grabAction.GetLastStateDown(handType))
+        if (grabAction.GetLastStateDown(handType))
         {
             if(collidingObject)
             {
@@ -67,6 +89,11 @@ public class getWeapon : MonoBehaviour
         collidingObject.transform.rotation = gameObject.transform.rotation * Quaternion.Euler(90, 0, 0);
         objectInHand = collidingObject;
         collidingObject = null;
+        if (handType == SteamVR_Input_Sources.LeftHand)
+            setLeftHandWeapon(objectInHand.name);
+        else if (handType == SteamVR_Input_Sources.RightHand)
+            setRightHandWeapon(objectInHand.name);
+
         var joint = AddFixedJoint();
         joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
     }
@@ -83,6 +110,10 @@ public class getWeapon : MonoBehaviour
     {
         if(GetComponent<FixedJoint>())
         {
+            if (handType == SteamVR_Input_Sources.LeftHand)
+                setLeftHandWeapon(null);
+            else if (handType == SteamVR_Input_Sources.RightHand)
+                setRightHandWeapon(null);
             GetComponent<FixedJoint>().connectedBody = null;
             Destroy(GetComponent<FixedJoint>());
             objectInHand.GetComponent<Rigidbody>().velocity = controllerPose.GetVelocity();
