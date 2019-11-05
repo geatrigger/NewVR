@@ -18,7 +18,8 @@ TagManager:
   - 
   - Enemy
   - Weapon
-  - 
+  - Player
+  - Env
   - 
   - 
   - 
