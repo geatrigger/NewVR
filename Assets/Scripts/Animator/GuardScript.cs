@@ -13,6 +13,8 @@ public class GuardScript : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
+        animator.SetFloat("Speed", 1.0f);
         randomTime = (float)Random.Range(1, 3);
         
         attackdirection = (int)Random.Range(0.0f, 2.99f);
@@ -28,7 +30,7 @@ public class GuardScript : StateMachineBehaviour
         {
             //sword의 위치에 기반해서 반대 방향으로 공격
             //sword가 업스니 대충 랜덤하게따
-            animator.SetInteger("Attack", attackdirection);
+            //animator.SetInteger("Attack", attackdirection);
 
         }
     }
@@ -40,7 +42,7 @@ public class GuardScript : StateMachineBehaviour
         
         if (collision.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Guard"))
         {
-            myself.SetInteger("Attack", attackdirection);
+           // myself.SetInteger("Attack", attackdirection);
 
         }
 
