@@ -11,12 +11,12 @@ public class leftguardScript : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        weaponSystem = GameObject.Find("weaponSystem");
-        Hand[] hand = weaponSystem.GetComponents<Hand>();
+        weaponSystem = GameObject.Find("weaponsystem");
+        Hand[] hand = weaponSystem.GetComponentsInChildren<Hand>();
         Sword1 = hand[0].weaponObject;
         Sword2 = hand[1].weaponObject;
         attackDefZ = 0.7f;
-        dirx = 0.65f; diry = 1.5f;
+        dirx = 0.5f; diry = 1.5f;
     }
 
 
@@ -60,15 +60,14 @@ public class leftguardScript : StateMachineBehaviour
                 //up
                 animator.SetInteger("guard", 0);
             }
-            else
-            {
-                //front
-                animator.SetInteger("guard", 3);
-            }
-
-
-
         }
+
+        else if (y < diry && x < dirx && x > -1.0f * dirx)
+        {
+            //front
+            animator.SetInteger("guard", 3);
+        }
+
         else
         {
             //attack
