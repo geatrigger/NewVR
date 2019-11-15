@@ -12,7 +12,7 @@ public class Hand : MonoBehaviour
     public string weapon;
     public GameObject[] weapons;
     public GameObject weaponObject;
-    float maxRot = 1f, maxVel = 5f;
+    float maxRot = 1f, maxVel = 500f;
     Vector3 prevPosition;
     Quaternion prevRotation;
     bool isGrapped;
@@ -42,11 +42,12 @@ public class Hand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyStrength = 1; // will be changed in selection scene
-        enemyGrip = 1; // will be changed in selection scene
+        enemyStrength = 0.1f; // will be changed in selection scene
+        enemyGrip = 1f; // will be changed in selection scene
         enemySwordVelocity = 1; // will be changed in selection scene
         enemySwordWeight = 1; // will be changed in selection scene
         playerStrength = 1; // will be changed in selection scene
+        playerGrip = 100f;
         hand = isRight ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand;
         isGrapped = true;
         coroutine = restart(2.0f);
@@ -165,6 +166,7 @@ public class Hand : MonoBehaviour
                 if(velocity.magnitude * playerStrength > enemyGrip)
                 {
                     // enemyAnimator.SetTrigger("miss");
+                    //collision.gameObject.SetActive(false);
                 }
                 if(enemySwordVelocity * enemyStrength <= playerGrip && velocity.magnitude * playerStrength <= enemyGrip)
                 {
