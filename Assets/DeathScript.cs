@@ -7,7 +7,7 @@ public class DeathScript : StateMachineBehaviour
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        GameObject enemy = GameObject.Find("pelvis_01_jnt");
+        GameObject enemy = GameObject.Find("ar_vae_t7_elite_e_skeleton");
         enemy.SetActive(false);
     }
 

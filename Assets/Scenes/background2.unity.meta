@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 3685deb84f942d44586271d6f845f7d5
+//<<<<<<< feature/animator
+guid: 76f6123e3656af04b9bd7cee89e59b72
+//=======
+//guid: 3685deb84f942d44586271d6f845f7d5
+//>>>>>>> master
 DefaultImporter:
   externalObjects: {}
   userData: 
