@@ -7,16 +7,16 @@ public class HitScript : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        int hp = animator.GetInteger("HP");
+        int hp = animator.GetInteger("hp");
         hp--;
-        animator.SetInteger("HP", hp);
+        animator.SetInteger("hp", hp);
         if (hp <= 0)
         {
-            animator.SetTrigger("Death");
+            animator.SetTrigger("death");
         }
         else
         {
-            animator.SetTrigger("Guard");
+            animator.SetTrigger("idle");
         }
     }
 
