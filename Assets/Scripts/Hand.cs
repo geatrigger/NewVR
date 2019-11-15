@@ -12,7 +12,7 @@ public class Hand : MonoBehaviour
     public string weapon;
     public GameObject[] weapons;
     public GameObject weaponObject;
-    float maxRot = 1f, maxVel = 0.05f;
+    float maxRot = 1f, maxVel = 5f;
     Vector3 prevPosition;
     Quaternion prevRotation;
     bool isGrapped;
@@ -21,6 +21,7 @@ public class Hand : MonoBehaviour
     bool canCollision;
     Vector3 velocity;
     float swordWeight, playerStrength;
+    float enemyStrength, enemyGrip;
     private IEnumerator restart(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
@@ -83,11 +84,12 @@ public class Hand : MonoBehaviour
     {
         if (isGrapped == true)
         {
+            Debug.Log(weaponObject.transform.position);
             gameObject.transform.position = controller.transform.position;
             gameObject.transform.rotation = controller.transform.rotation * Quaternion.Euler(90, 0, 0);
             weaponObject.transform.position = gameObject.transform.position;
             weaponObject.transform.rotation = gameObject.transform.rotation;
-            velocity = (gameObject.transform.position - prevPosition) * (Time.deltaTime * 90);
+            velocity = (gameObject.transform.position - prevPosition) * (Time.deltaTime * 90) * 100;
             //Quaternion deltaRot = gameObject.transform.rotation *= tmpRotation * Quaternion.Inverse(prevRotation);
             if (velocity.magnitude > maxVel)
             {
@@ -95,6 +97,7 @@ public class Hand : MonoBehaviour
                 isGrapped = false;
                 rigid.isKinematic = false;
                 rigid.useGravity = true;
+                rigid.velocity = velocity;
                 StartCoroutine(coroutine);
             }
             prevPosition = gameObject.transform.position;
@@ -143,6 +146,12 @@ public class Hand : MonoBehaviour
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Weapon"))
         {
             Debug.Log("Hit enemy weapon!");
+            
+            //if(isGrapped)
+            //{
+                //if(
+            //}
+            
         }
     }
 }
