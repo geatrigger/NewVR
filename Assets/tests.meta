@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+//<<<<<<< feature/animator
 guid: d2c3ccc3e750ef84bbd05d2adb33dafd
+//=======
+//guid: 9ab51ec59f1919f4fbfe39393b8d3281
+//>>>>>>> master
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
