@@ -20,8 +20,8 @@ public class Hand : MonoBehaviour
     private Rigidbody rigid;
     bool canCollision;
     Vector3 velocity;
-    float swordWeight, playerStrength;
-    float enemyStrength, enemyGrip;
+    float swordWeight, playerStrength, playerGrip;
+    float enemyStrength, enemyGrip, enemySwordWeight, enemySwordVelocity;
     private IEnumerator restart(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
@@ -42,6 +42,10 @@ public class Hand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemyStrength = 1; // will be changed in selection scene
+        enemyGrip = 1; // will be changed in selection scene
+        enemySwordVelocity = 1; // will be changed in selection scene
+        enemySwordWeight = 1; // will be changed in selection scene
         playerStrength = 1; // will be changed in selection scene
         hand = isRight ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand;
         isGrapped = true;
@@ -126,6 +130,7 @@ public class Hand : MonoBehaviour
 
     public void childOnCollisionEnter(Collision collision)
     {
+        Animator enemyAnimator = collision.gameObject.GetComponentInParent<Animator>();
         //Debug.Log("trigger");
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && canCollision)
         {
@@ -135,7 +140,7 @@ public class Hand : MonoBehaviour
             }
             else
             {
-                collision.gameObject.GetComponentInParent<Animator>().SetTrigger("Hit");
+                enemyAnimator.SetTrigger("Hit");
                 //collision.gameObject.GetComponentInParent<Animator>().SetTrigger("Hit");
                 vibration.Execute(0, 0.2f, 100, 1f, hand);
                 //Debug.Log("Sword trigger");
@@ -147,10 +152,29 @@ public class Hand : MonoBehaviour
         {
             Debug.Log("Hit enemy weapon!");
             
-            //if(isGrapped)
-            //{
-                //if(
-            //}
+            if(isGrapped)
+            {
+                if(enemySwordVelocity * enemyStrength > playerGrip)
+                {
+                    isGrapped = false;
+                    rigid.isKinematic = false;
+                    rigid.useGravity = true;
+                    rigid.velocity = -velocity;
+                    StartCoroutine(coroutine);
+                }
+                if(velocity.magnitude * playerStrength > enemyGrip)
+                {
+                    // enemyAnimator.SetTrigger("miss");
+                }
+                if(enemySwordVelocity * enemyStrength <= playerGrip && velocity.magnitude * playerStrength <= enemyGrip)
+                {
+                    isGrapped = false;
+                    rigid.isKinematic = false;
+                    rigid.useGravity = true;
+                    rigid.velocity = -velocity;
+                    StartCoroutine(coroutine);
+                }
+            }
             
         }
     }
