@@ -1,0 +1,125 @@
+fileFormatVersion: 2
+guid: 879023aaa81b1df48ac77f897dd5018b
+ModelImporter:
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      74: 4586646907534674318
+    second: ar_vae_t7_elite_e_skeleton|attacks_single_lefttoright
+  - first:
+      74: 3080595841944664392
+    second: ar_vae_t7_elite_e_skeleton|attacks_single_overswing
+  - first:
+      74: -5059301917261532080
+    second: ar_vae_t7_elite_e_skeleton|attacks_single_righttoleft
+  - first:
+      74: 2928708821202354864
+    second: ar_vae_t7_elite_e_skeleton|death2
+  - first:
+      74: 4871229720951216657
+    second: ar_vae_t7_elite_e_skeleton|defenseFront
+  - first:
+      74: -4672439033038341327
+    second: ar_vae_t7_elite_e_skeleton|defenseLeft
+  - first:
+      74: 6136584624920617130
+    second: ar_vae_t7_elite_e_skeleton|defenseRight
+  - first:
+      74: -3525908987914425007
+    second: ar_vae_t7_elite_e_skeleton|defenseUp
+  - first:
+      74: -8073709291381804513
+    second: ar_vae_t7_elite_e_skeleton|stand_man
+  - first:
+      74: -7013687641604054930
+    second: ar_vae_t7_elite_e_skeleton|strikes
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
