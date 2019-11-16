@@ -135,13 +135,16 @@ public class Hand : MonoBehaviour
         //Debug.Log("trigger");
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && canCollision)
         {
-            if (collision.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Guard"))
+            if (enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("leftguard") ||
+                enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("upguard") ||
+                enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("rightguard") ||
+                enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("frontguard"))
             {
                 Debug.Log("guard!");
             }
             else
             {
-                enemyAnimator.SetTrigger("Hit");
+                enemyAnimator.SetTrigger("hit");
                 //collision.gameObject.GetComponentInParent<Animator>().SetTrigger("Hit");
                 vibration.Execute(0, 0.2f, 100, 1f, hand);
                 //Debug.Log("Sword trigger");
@@ -155,7 +158,19 @@ public class Hand : MonoBehaviour
             
             if(isGrapped)
             {
-                if(enemySwordVelocity * enemyStrength > playerGrip)
+                if (enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("leftguard") ||
+                enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("upguard") ||
+                enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("rightguard") ||
+                enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("frontguard"))
+                {
+                    Debug.Log("guard!");
+                }
+                else if (velocity.magnitude * playerStrength > enemyGrip)
+                {
+                    // enemyAnimator.SetTrigger("miss");
+                    //collision.gameObject.SetActive(false);
+                }
+                else if (enemySwordVelocity * enemyStrength <= playerGrip && velocity.magnitude * playerStrength <= enemyGrip)
                 {
                     isGrapped = false;
                     rigid.isKinematic = false;
@@ -163,12 +178,7 @@ public class Hand : MonoBehaviour
                     rigid.velocity = -velocity;
                     StartCoroutine(coroutine);
                 }
-                if(velocity.magnitude * playerStrength > enemyGrip)
-                {
-                    // enemyAnimator.SetTrigger("miss");
-                    //collision.gameObject.SetActive(false);
-                }
-                if(enemySwordVelocity * enemyStrength <= playerGrip && velocity.magnitude * playerStrength <= enemyGrip)
+                if (enemySwordVelocity * enemyStrength > playerGrip)
                 {
                     isGrapped = false;
                     rigid.isKinematic = false;
