@@ -12,7 +12,7 @@ public class Hand : MonoBehaviour
     public string weapon;
     public GameObject[] weapons;
     public GameObject weaponObject;
-    float maxRot = 1f, maxVel = 500f;
+    float maxRot = 1f, maxVel = 3f;
     Vector3 prevPosition;
     Quaternion prevRotation;
     bool isGrapped;
@@ -47,7 +47,7 @@ public class Hand : MonoBehaviour
         enemySwordVelocity = 1; // will be changed in selection scene
         enemySwordWeight = 1; // will be changed in selection scene
         playerStrength = 1; // will be changed in selection scene
-        playerGrip = 100f;
+        playerGrip = 1f;
         hand = isRight ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand;
         isGrapped = true;
         coroutine = restart(2.0f);
@@ -89,7 +89,7 @@ public class Hand : MonoBehaviour
     {
         if (isGrapped == true)
         {
-            Debug.Log(weaponObject.transform.position);
+            //Debug.Log(weaponObject.transform.position);
             gameObject.transform.position = controller.transform.position;
             gameObject.transform.rotation = controller.transform.rotation * Quaternion.Euler(90, 0, 0);
             weaponObject.transform.position = gameObject.transform.position;
@@ -98,7 +98,7 @@ public class Hand : MonoBehaviour
             //Quaternion deltaRot = gameObject.transform.rotation *= tmpRotation * Quaternion.Inverse(prevRotation);
             if (velocity.magnitude > maxVel)
             {
-                Debug.Log("velocity:" + velocity.magnitude + " maxVel/weight:" + maxVel / swordWeight + " playerStrength*weight" + playerStrength * swordWeight);
+                //Debug.Log("velocity:" + velocity.magnitude + " maxVel/weight:" + maxVel / swordWeight + " playerStrength*weight" + playerStrength * swordWeight);
                 isGrapped = false;
                 rigid.isKinematic = false;
                 rigid.useGravity = true;
@@ -145,16 +145,17 @@ public class Hand : MonoBehaviour
             else
             {
                 enemyAnimator.SetTrigger("hit");
+                FightingUI.addScore(true);
                 //collision.gameObject.GetComponentInParent<Animator>().SetTrigger("Hit");
                 vibration.Execute(0, 0.2f, 100, 1f, hand);
                 //Debug.Log("Sword trigger");
                 canCollision = false;
-                StartCoroutine(setCollisionTime(4.0f));
+                StartCoroutine(setCollisionTime(2.0f));
             }
         }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Weapon"))
         {
-            Debug.Log("Hit enemy weapon!");
+            //Debug.Log("Hit enemy weapon!");
             
             if(isGrapped)
             {
