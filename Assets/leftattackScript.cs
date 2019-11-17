@@ -17,6 +17,11 @@ public class leftattackScript : StateMachineBehaviour
     {
         waitTime += Time.deltaTime;
         
+
+        //todo
+        //if collision occur, change speed to 0
+        //after little time, go back to idle
+
         if (waitTime >= maxWaitTime)
         {
             waitTime = 0.0f;
