@@ -8,15 +8,18 @@ public class IdleScript : StateMachineBehaviour
     GameObject Sword1, Sword2;
     float attackDefZ;
     float dirx, diry;
+
+    float waitTime;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        waitTime = 0.0f;
         weaponSystem = GameObject.Find("weaponsystem");
         Hand[] hand = weaponSystem.GetComponentsInChildren<Hand>();
         Sword1 = hand[0].weaponObject;
         Sword2 = hand[1].weaponObject;
-        attackDefZ = 0.7f;
-        dirx = 0.5f; diry = 1.5f;
+        attackDefZ = 0.6f;
+        dirx = 0.4f; diry = 1.5f;
     }
 
 
@@ -26,6 +29,7 @@ public class IdleScript : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        waitTime += Time.deltaTime;
         sword1pos = Sword1.transform.position;
         sword2pos = Sword2.transform.position; // x,y is screen, z is depth
         float x, y, maxz;
@@ -40,7 +44,13 @@ public class IdleScript : StateMachineBehaviour
 
         //for(int i = 0; i<100000; i++) { }
 
-        if(maxz > attackDefZ)
+        if (y < diry && x < dirx && x > -1.0f * dirx)
+        {
+            //front
+            animator.SetInteger("guard", 3);
+        }
+
+        else if(maxz > attackDefZ)
         {
 
             animator.SetInteger("attack", 3); // don't attack
@@ -62,13 +72,10 @@ public class IdleScript : StateMachineBehaviour
             }
         }
 
-        else if (y < diry && x < dirx && x > -1.0f * dirx)
-        {
-            //front
-            animator.SetInteger("guard", 3);
-        }
-
-
+        //todo : attack after a while or attacknow is on (when player lose weapon)
+        //getTrigger attacknow
+        //if(time > certain time || attacknow trigger is on) {
+        // waitTime = 0.0f;
         else
         {
             //attack

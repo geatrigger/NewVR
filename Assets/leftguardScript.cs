@@ -15,8 +15,8 @@ public class leftguardScript : StateMachineBehaviour
         Hand[] hand = weaponSystem.GetComponentsInChildren<Hand>();
         Sword1 = hand[0].weaponObject;
         Sword2 = hand[1].weaponObject;
-        attackDefZ = 0.7f;
-        dirx = 0.5f; diry = 1.5f;
+        attackDefZ = 0.6f;
+        dirx = 0.4f; diry = 1.5f;
     }
 
 
@@ -37,10 +37,14 @@ public class leftguardScript : StateMachineBehaviour
             y = sword1pos.y;
             maxz = sword1pos.z;
         }
+        
+        if (y < diry && x < dirx && x > -1.0f * dirx)
+        {
+            //front
+            animator.SetInteger("guard", 3);
+        }
 
-        //for(int i = 0; i<100000; i++) { }
-
-        if (maxz > attackDefZ)
+        else if (maxz > attackDefZ)
         {
 
             animator.SetInteger("attack", 3); // don't attack
@@ -62,11 +66,6 @@ public class leftguardScript : StateMachineBehaviour
             }
         }
 
-        else if (y < diry && x < dirx && x > -1.0f * dirx)
-        {
-            //front
-            animator.SetInteger("guard", 3);
-        }
 
         else
         {
