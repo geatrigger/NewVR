@@ -18,11 +18,14 @@ public class Hand : MonoBehaviour
     bool isGrapped;
     private IEnumerator coroutine;
     private Rigidbody rigid;
-    bool canCollision;
+    public static bool canCollision;
     Vector3 velocity;
     float swordWeight, playerStrength, playerGrip;
     float enemyStrength, enemyGrip, enemySwordWeight, enemySwordVelocity;
     public bool isShield;
+
+    public GameObject enemySword;
+    public GameObject enemySwordrigid;
     private IEnumerator restart(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
@@ -43,6 +46,7 @@ public class Hand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         enemyStrength = 0.1f; // will be changed in selection scene
         enemyGrip = 1f; // will be changed in selection scene
         enemySwordVelocity = 1; // will be changed in selection scene
@@ -92,6 +96,7 @@ public class Hand : MonoBehaviour
         weaponObject.transform.position = gameObject.transform.position;
         weaponObject.transform.rotation = gameObject.transform.rotation;
         canCollision = true;
+        
     }
 
     // Update is called once per frame
@@ -166,8 +171,8 @@ public class Hand : MonoBehaviour
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Weapon"))
         {
             //Debug.Log("Hit enemy weapon!");
-            
-            if(isGrapped)
+            enemyAnimator.SetBool("collision", true);
+            if (isGrapped)
             {
                 if (enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("leftguard") ||
                 enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("upguard") ||
@@ -178,8 +183,11 @@ public class Hand : MonoBehaviour
                 }
                 else if (isShield || velocity.magnitude * playerStrength * swordWeight > enemyGrip * enemySwordWeight)
                 {
-                    // enemyAnimator.SetTrigger("miss");
-                    //collision.gameObject.SetActive(false);
+                    enemySword.GetComponent<MeshRenderer>().enabled = false;
+                    enemySword.GetComponent<BoxCollider>().enabled = false;
+                    GameObject flyingSword = Instantiate(enemySwordrigid);
+                    flyingSword.transform.position = enemySword.transform.position + velocity;
+                    flyingSword.GetComponent<Rigidbody>().velocity = velocity;
                 }
                 else if (enemySwordVelocity * enemyStrength * enemySwordWeight <= playerGrip * swordWeight && velocity.magnitude * playerStrength * swordWeight <= enemyGrip * enemySwordWeight)
                 {

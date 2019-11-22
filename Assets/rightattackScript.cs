@@ -5,7 +5,7 @@ using UnityEngine;
 public class rightattackScript : StateMachineBehaviour
 {
     float waitTime = 0.0f;
-    float maxWaitTime = 1.10f;
+    float maxWaitTime = 1.90f;
     bool collision;
     bool check = true;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
