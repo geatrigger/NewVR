@@ -30,8 +30,11 @@ public class Selection : MonoBehaviour
         }
         if(time >= 5.0f)
         {
-            timeText.text = time.ToString() + "초 후 시작합니다.";
             StartingFight();
+        }
+        else if(time != 0)
+        {
+            timeText.text = time.ToString() + "초 후 시작합니다.";
         }
         if (nameLH == null)
             nameLH = "Hand";
