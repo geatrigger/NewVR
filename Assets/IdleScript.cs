@@ -10,14 +10,20 @@ public class IdleScript : StateMachineBehaviour
     float dirx, diry;
 
     float waitTime;
+    float attackTIme;
+    bool isShield1, isShield2;
+    bool attacknow;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        attackTIme = 2.0f;//changed by 성격
         waitTime = 0.0f;
         weaponSystem = GameObject.Find("weaponsystem");
         Hand[] hand = weaponSystem.GetComponentsInChildren<Hand>();
         Sword1 = hand[0].weaponObject;
         Sword2 = hand[1].weaponObject;
+        //isShield1 = hand[0].isShield;
+        //isShield2 = hand[0].isShield;
         attackDefZ = 0.6f;
         dirx = 0.4f; diry = 1.5f;
     }
@@ -32,6 +38,7 @@ public class IdleScript : StateMachineBehaviour
         waitTime += Time.deltaTime;
         sword1pos = Sword1.transform.position;
         sword2pos = Sword2.transform.position; // x,y is screen, z is depth
+        attacknow = animator.GetBool("attacknow");
         float x, y, maxz;
         x = sword2pos.x; y = sword2pos.y;
         maxz = sword2pos.z;
@@ -74,10 +81,11 @@ public class IdleScript : StateMachineBehaviour
 
         //todo : attack after a while or attacknow is on (when player lose weapon)
         //getTrigger attacknow
-        //if(time > certain time || attacknow trigger is on) {
-        // waitTime = 0.0f;
-        else
-        {
+        if(waitTime > attackTIme || attacknow == true) {
+            waitTime = 0.0f;
+            animator.SetBool("attacknow", false);
+        //else
+        //{
             //attack
             animator.SetInteger("guard", 4); // don't guard
             if (x > dirx)

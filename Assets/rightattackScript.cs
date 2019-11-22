@@ -6,9 +6,14 @@ public class rightattackScript : StateMachineBehaviour
 {
     float waitTime = 0.0f;
     float maxWaitTime = 1.10f;
+    bool collision;
+    bool check = true;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        check = true;
+        collision = false;
+        waitTime = 0.0f;
 
     }
 
@@ -16,7 +21,23 @@ public class rightattackScript : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         waitTime += Time.deltaTime;
+        collision = animator.GetBool("collision");
 
+        if (collision == true && check == true)
+        {
+            check = false;
+            waitTime = 0.0f;
+            animator.SetFloat("speed", 0.0f);
+        }
+        if (check == false && waitTime > 0.2f)
+        {
+            check = true;
+
+            animator.SetBool("collision", false);
+            animator.SetFloat("speed", 1.0f);
+            animator.SetTrigger("idle");
+
+        }
         if (waitTime >= maxWaitTime)
         {
             waitTime = 0.0f;
