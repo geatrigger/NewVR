@@ -64,9 +64,38 @@ public class IdleScript : StateMachineBehaviour
             }
         }
 
+        //todo : attack after a while or attacknow is on (when player lose weapon)
+        //getTrigger attacknow
+        if (waitTime > attackTIme || attacknow == true)
+        {
+            Debug.Log(attacknow);
+
+            waitTime = 0.0f;
+            animator.SetInteger("guard", 4); // don't guard
+            if (x > dirx)
+            {
+                //left attack
+                animator.SetInteger("attack", 1);
+            }
+            else if (x < -1.0f * dirx)
+            {
+                //right attack
+                animator.SetInteger("attack", 2);
+            }
+            else
+            {
+                //up attack
+                animator.SetInteger("attack", 0);
+            }
+        }
+
+
+
+
+
         //for(int i = 0; i<100000; i++) { }
 
-        if (y < diry && x < dirx && x > -1.0f * dirx)
+        else if (y < diry && x < dirx && x > -1.0f * dirx)
         {
             //front
             animator.SetInteger("guard", 3);
@@ -94,31 +123,6 @@ public class IdleScript : StateMachineBehaviour
             }
         }
 
-        //todo : attack after a while or attacknow is on (when player lose weapon)
-        //getTrigger attacknow
-        if(waitTime > attackTIme || attacknow == true) {
-            waitTime = 0.0f;
-            animator.SetBool("attacknow", false);
-        //else
-        //{
-            //attack
-            animator.SetInteger("guard", 4); // don't guard
-            if (x > dirx)
-            {
-                //left attack
-                animator.SetInteger("attack", 1);
-            }
-            else if (x< -1.0f * dirx)
-            {
-                //right attack
-                animator.SetInteger("attack", 2);
-            }
-            else
-            {
-                //up attack
-                animator.SetInteger("attack", 0);
-            }
-        }
         
     }
 

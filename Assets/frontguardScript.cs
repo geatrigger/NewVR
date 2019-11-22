@@ -29,8 +29,11 @@ public class frontguardScript : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log(isShield2);
-        Debug.Log(isShield1);
+        bool attacknow = animator.GetBool("attacknow");
+        if (attacknow == true)
+        {
+            animator.SetTrigger("idle");
+        }
         sword1pos = Sword1.transform.position;
         sword2pos = Sword2.transform.position; // x,y is screen, z is depth
         float x, y, maxz;

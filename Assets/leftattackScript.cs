@@ -51,9 +51,10 @@ public class leftattackScript : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       
-            animator.SetBool("collision", false);
-            animator.SetFloat("speed", 1.0f);
+
+        animator.SetBool("attacknow", false);
+        animator.SetBool("collision", false);
+        animator.SetFloat("speed", 1.0f);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

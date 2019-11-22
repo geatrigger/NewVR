@@ -51,6 +51,7 @@ public class upattackScript : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
+        animator.SetBool("attacknow", false);
         animator.SetBool("collision", false);
         animator.SetFloat("speed", 1.0f);
     }
