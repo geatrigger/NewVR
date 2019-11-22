@@ -987,7 +987,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8681372010452311643}
   - component: {fileID: 1652942118241694497}
-  - component: {fileID: 4395751924958450680}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -1032,18 +1031,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4395751924958450680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5629838184089234504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b252dc795e2b0a4d87f87c0d7c379bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5939651582220993236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1672,11 +1659,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5294486513001676262}
     m_Modifications:
-    - target: {fileID: 4199415466975976364, guid: d10c451f045ae334fb5dd23c3be099d8,
-        type: 3}
-      propertyPath: m_Name
-      value: sword (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 872585376239495615, guid: d10c451f045ae334fb5dd23c3be099d8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1746,6 +1728,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4199415466975976364, guid: d10c451f045ae334fb5dd23c3be099d8,
+        type: 3}
+      propertyPath: m_Name
+      value: enemysword
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d10c451f045ae334fb5dd23c3be099d8, type: 3}

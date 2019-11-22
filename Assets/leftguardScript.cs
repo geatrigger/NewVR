@@ -7,6 +7,7 @@ public class leftguardScript : StateMachineBehaviour
     GameObject weaponSystem;
     GameObject Sword1, Sword2;
     float attackDefZ;
+    bool isShield1, isShield2;
     float dirx, diry;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -15,6 +16,8 @@ public class leftguardScript : StateMachineBehaviour
         Hand[] hand = weaponSystem.GetComponentsInChildren<Hand>();
         Sword1 = hand[0].weaponObject;
         Sword2 = hand[1].weaponObject;
+        isShield1 = hand[0].isShield;
+        isShield2 = hand[0].isShield;
         attackDefZ = 0.6f;
         dirx = 0.4f; diry = 1.5f;
     }
@@ -26,17 +29,25 @@ public class leftguardScript : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
         sword1pos = Sword1.transform.position;
         sword2pos = Sword2.transform.position; // x,y is screen, z is depth
         float x, y, maxz;
-        x = sword2pos.x; y = sword2pos.y;
-        maxz = sword2pos.z;
-        if (sword1pos.z > sword2pos.z)
+        x = 0.0f; y = 0.0f;
+        maxz = -100.0f;
+        if (isShield2 == false)
+        {
+            x = sword2pos.x;
+            y = sword2pos.y;
+            maxz = sword2pos.z;
+        }
+        if (sword1pos.z > maxz && isShield1 == false)
         {
             x = sword1pos.x;
             y = sword1pos.y;
             maxz = sword1pos.z;
         }
+        
         
         if (y < diry && x < dirx && x > -1.0f * dirx)
         {
