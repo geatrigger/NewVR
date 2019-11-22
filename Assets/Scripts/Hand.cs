@@ -12,7 +12,7 @@ public class Hand : MonoBehaviour
     public string weapon;
     public GameObject[] weapons;
     public GameObject weaponObject;
-    float maxRot = 1f, maxVelFactor = 3f;
+    float maxRot = 1f, maxVelFactor = 5f;
     Vector3 prevPosition;
     Quaternion prevRotation;
     bool isGrapped;
@@ -46,19 +46,18 @@ public class Hand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        enemyStrength = 0.1f; // will be changed in selection scene
+        enemyStrength = 1f; // will be changed in selection scene
         enemyGrip = 1f; // will be changed in selection scene
         enemySwordVelocity = 1; // will be changed in selection scene
         enemySwordWeight = 1; // will be changed in selection scene
-        playerStrength = 1; // will be changed in selection scene
+        playerStrength = 1f; // will be changed in selection scene
         playerGrip = 1f;
         hand = isRight ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand;
         isGrapped = true;
         coroutine = restart(2.0f);
         string leftHandWeapon = getWeapon.getLeftHandWeapon();
         string rightHandWeapon = getWeapon.getRightHandWeapon();
-        weapon = isRight ? leftHandWeapon : rightHandWeapon;
+        weapon = isRight ? rightHandWeapon : leftHandWeapon;
         switch (weapon)
         {
             case "Shield":
@@ -96,7 +95,6 @@ public class Hand : MonoBehaviour
         weaponObject.transform.position = gameObject.transform.position;
         weaponObject.transform.rotation = gameObject.transform.rotation;
         canCollision = true;
-        
     }
 
     // Update is called once per frame
@@ -157,7 +155,7 @@ public class Hand : MonoBehaviour
             {
                 Debug.Log("guard!");
             }
-            else
+            else if(!isShield)
             {
                 enemyAnimator.SetTrigger("hit");
                 FightingUI.addScore(true);
@@ -171,6 +169,8 @@ public class Hand : MonoBehaviour
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Weapon"))
         {
             //Debug.Log("Hit enemy weapon!");
+            Debug.Log("velocity:" + velocity.magnitude);
+
             enemyAnimator.SetBool("collision", true);
             if (isGrapped)
             {
@@ -180,16 +180,13 @@ public class Hand : MonoBehaviour
                 enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("frontguard"))
                 {
                     Debug.Log("guard!");
+                    isGrapped = false;
+                    rigid.isKinematic = false;
+                    rigid.useGravity = true;
+                    rigid.velocity = -velocity;
+                    StartCoroutine(coroutine);
                 }
-                else if (isShield || velocity.magnitude * playerStrength * swordWeight > enemyGrip * enemySwordWeight)
-                {
-                    enemySword.GetComponent<MeshRenderer>().enabled = false;
-                    enemySword.GetComponent<BoxCollider>().enabled = false;
-                    GameObject flyingSword = Instantiate(enemySwordrigid);
-                    flyingSword.transform.position = enemySword.transform.position + velocity;
-                    flyingSword.GetComponent<Rigidbody>().velocity = velocity;
-                }
-                else if (enemySwordVelocity * enemyStrength * enemySwordWeight <= playerGrip * swordWeight && velocity.magnitude * playerStrength * swordWeight <= enemyGrip * enemySwordWeight)
+                else if (!isShield && enemySwordVelocity * enemyStrength > playerGrip * swordWeight)
                 {
                     isGrapped = false;
                     rigid.isKinematic = false;
@@ -197,7 +194,16 @@ public class Hand : MonoBehaviour
                     rigid.velocity = -velocity;
                     StartCoroutine(coroutine);
                 }
-                if (!isShield || enemySwordVelocity * enemyStrength > playerGrip)
+                else if (isShield || velocity.magnitude * playerStrength > enemyGrip * enemySwordWeight)
+                {
+                    enemySword.GetComponent<MeshRenderer>().enabled = false;
+                    enemySword.GetComponent<BoxCollider>().enabled = false;
+                    GameObject flyingSword = Instantiate(enemySwordrigid);
+                    flyingSword.transform.position = enemySword.transform.position;
+                    flyingSword.transform.rotation = enemySword.transform.rotation;
+                    flyingSword.GetComponent<Rigidbody>().velocity = velocity;
+                }
+                else if (!isShield && enemySwordVelocity * enemyStrength <= playerGrip * swordWeight && velocity.magnitude * playerStrength <= enemyGrip * enemySwordWeight)
                 {
                     isGrapped = false;
                     rigid.isKinematic = false;

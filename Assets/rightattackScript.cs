@@ -33,8 +33,6 @@ public class rightattackScript : StateMachineBehaviour
         {
             check = true;
 
-            animator.SetBool("collision", false);
-            animator.SetFloat("speed", 1.0f);
             animator.SetTrigger("idle");
 
         }
@@ -47,10 +45,12 @@ public class rightattackScript : StateMachineBehaviour
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+
+        animator.SetBool("collision", false);
+        animator.SetFloat("speed", 1.0f);
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

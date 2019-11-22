@@ -23,9 +23,9 @@ public class IdleScript : StateMachineBehaviour
         Sword1 = hand[0].weaponObject;
         Sword2 = hand[1].weaponObject;
         isShield1 = hand[0].isShield;
-        isShield2 = hand[0].isShield;
+        isShield2 = hand[1].isShield;
         attackDefZ = 0.6f;
-        dirx = 0.4f; diry = 1.5f;
+        dirx = 0.25f; diry = 1.3f;
     }
 
 
@@ -40,19 +40,28 @@ public class IdleScript : StateMachineBehaviour
         sword2pos = Sword2.transform.position; // x,y is screen, z is depth
         attacknow = animator.GetBool("attacknow");
         float x, y, maxz;
-        x = 0.0f; y = 0.0f;
-        maxz = -100.0f;
-        if (isShield2 == false)
-        {
-            x = sword2pos.x;
-            y = sword2pos.y;
-            maxz = sword2pos.z;
-        }
-        if(sword1pos.z > maxz && isShield1 == false)
+
+        x = sword2pos.x;
+        y = sword2pos.y;
+        maxz = sword2pos.z;
+
+        if (isShield2 == true)
         {
             x = sword1pos.x;
             y = sword1pos.y;
             maxz = sword1pos.z;
+        }
+        else if (isShield1 == false && isShield2 == false)
+        {
+            x = sword2pos.x;
+            y = sword2pos.y;
+            maxz = sword2pos.z;
+            if (sword1pos.z > sword2pos.z)
+            {
+                x = sword1pos.x;
+                y = sword1pos.y;
+                maxz = sword1pos.z;
+            }
         }
 
         //for(int i = 0; i<100000; i++) { }
