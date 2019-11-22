@@ -12,7 +12,7 @@ public class Hand : MonoBehaviour
     public string weapon;
     public GameObject[] weapons;
     public GameObject weaponObject;
-    float maxRot = 1f, maxVel = 3f;
+    float maxRot = 1f, maxVelFactor = 3f;
     Vector3 prevPosition;
     Quaternion prevRotation;
     bool isGrapped;
@@ -22,6 +22,7 @@ public class Hand : MonoBehaviour
     Vector3 velocity;
     float swordWeight, playerStrength, playerGrip;
     float enemyStrength, enemyGrip, enemySwordWeight, enemySwordVelocity;
+    public bool isShield;
     private IEnumerator restart(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
@@ -56,21 +57,30 @@ public class Hand : MonoBehaviour
         weapon = isRight ? leftHandWeapon : rightHandWeapon;
         switch (weapon)
         {
+            case "Shield":
+                weaponObject = Instantiate(weapons[4]);
+                swordWeight = 100;
+                isShield = true;
+                break;
             case "Sabre":
                 weaponObject = Instantiate(weapons[3]);
                 swordWeight = 1;
+                isShield = false;
                 break;
             case "Broadsword":
                 weaponObject = Instantiate(weapons[1]);
                 swordWeight = 2;
+                isShield = false;
                 break;
             case "Rapier":
                 weaponObject = Instantiate(weapons[2]);
                 swordWeight = 0.5f;
+                isShield = false;
                 break;
             default:
                 weaponObject = Instantiate(weapons[0]);
                 swordWeight = 2;
+                isShield = false;
                 break;
         }
         weaponObject.GetComponent<Sword>().hand = this;
@@ -96,7 +106,7 @@ public class Hand : MonoBehaviour
             weaponObject.transform.rotation = gameObject.transform.rotation;
             velocity = (gameObject.transform.position - prevPosition) * (Time.deltaTime * 90) * 100;
             //Quaternion deltaRot = gameObject.transform.rotation *= tmpRotation * Quaternion.Inverse(prevRotation);
-            if (velocity.magnitude > maxVel)
+            if (!isShield && velocity.magnitude > maxVelFactor / swordWeight)
             {
                 //Debug.Log("velocity:" + velocity.magnitude + " maxVel/weight:" + maxVel / swordWeight + " playerStrength*weight" + playerStrength * swordWeight);
                 isGrapped = false;
@@ -166,12 +176,12 @@ public class Hand : MonoBehaviour
                 {
                     Debug.Log("guard!");
                 }
-                else if (velocity.magnitude * playerStrength > enemyGrip)
+                else if (isShield || velocity.magnitude * playerStrength * swordWeight > enemyGrip * enemySwordWeight)
                 {
                     // enemyAnimator.SetTrigger("miss");
                     //collision.gameObject.SetActive(false);
                 }
-                else if (enemySwordVelocity * enemyStrength <= playerGrip && velocity.magnitude * playerStrength <= enemyGrip)
+                else if (enemySwordVelocity * enemyStrength * enemySwordWeight <= playerGrip * swordWeight && velocity.magnitude * playerStrength * swordWeight <= enemyGrip * enemySwordWeight)
                 {
                     isGrapped = false;
                     rigid.isKinematic = false;
@@ -179,7 +189,7 @@ public class Hand : MonoBehaviour
                     rigid.velocity = -velocity;
                     StartCoroutine(coroutine);
                 }
-                if (enemySwordVelocity * enemyStrength > playerGrip)
+                if (!isShield || enemySwordVelocity * enemyStrength > playerGrip)
                 {
                     isGrapped = false;
                     rigid.isKinematic = false;
