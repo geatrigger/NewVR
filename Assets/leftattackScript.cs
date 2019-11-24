@@ -9,7 +9,7 @@ public class leftattackScript : StateMachineBehaviour
     float waitTime2 = 0.0f;
     float maxWaitTime = 2.30f;
     bool collision;
-    bool check = true;
+    bool check;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -17,6 +17,8 @@ public class leftattackScript : StateMachineBehaviour
         collision = false;
         waitTime = 0.0f;
         waitTime2 = 0.0f;
+
+        animator.SetBool("idle", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -34,9 +36,8 @@ public class leftattackScript : StateMachineBehaviour
         }
         if (check == false && waitTime2 > 0.2f)
         {
-            check = true;
-            
-            animator.SetTrigger("idle");
+            waitTime2 = -1000.0f;
+            animator.SetBool("idle", true);
 
         }
 
@@ -46,15 +47,17 @@ public class leftattackScript : StateMachineBehaviour
 
         if (waitTime >= maxWaitTime)
         {
-            waitTime = 0.0f;
-            animator.SetTrigger("idle");
-            
+            animator.SetBool("idle", true);
+
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        check = true;
+        waitTime = 0.0f;
+        waitTime2 = 0.0f;
 
         animator.SetBool("attacknow", false);
         animator.SetBool("collision", false);

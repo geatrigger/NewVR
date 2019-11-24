@@ -16,6 +16,7 @@ public class upattackScript : StateMachineBehaviour
         collision = false;
         waitTime = 0.0f;
         waitTime2 = 0.0f;
+        animator.SetBool("idle", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -37,14 +38,14 @@ public class upattackScript : StateMachineBehaviour
 
             animator.SetBool("collision", false);
             animator.SetFloat("speed", 1.0f);
-            animator.SetTrigger("idle");
+            animator.SetBool("idle", true);
 
         }
 
         if (waitTime >= maxWaitTime)
         {
             waitTime = 0.0f;
-            animator.SetTrigger("idle");
+            animator.SetBool("idle", true);
 
         }
     }
@@ -53,6 +54,7 @@ public class upattackScript : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
+        animator.SetBool("idle", false);
         animator.SetBool("attacknow", false);
         animator.SetBool("collision", false);
         animator.SetFloat("speed", 1.0f);

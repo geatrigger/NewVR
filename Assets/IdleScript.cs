@@ -26,6 +26,8 @@ public class IdleScript : StateMachineBehaviour
         isShield2 = hand[1].isShield;
         attackDefZ = 0.6f;
         dirx = 0.25f; diry = 1.3f;
+
+        animator.SetBool("idle", true);
     }
 
 
@@ -68,7 +70,6 @@ public class IdleScript : StateMachineBehaviour
         //getTrigger attacknow
         if (waitTime > attackTIme || attacknow == true)
         {
-            Debug.Log(attacknow);
 
             waitTime = 0.0f;
             animator.SetInteger("guard", 4); // don't guard
@@ -127,10 +128,11 @@ public class IdleScript : StateMachineBehaviour
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+
+        animator.SetBool("idle", false);
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

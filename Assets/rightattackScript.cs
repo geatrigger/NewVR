@@ -16,6 +16,7 @@ public class rightattackScript : StateMachineBehaviour
         collision = false;
         waitTime = 0.0f;
         waitTime2 = 0.0f;
+        animator.SetBool("idle", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -35,13 +36,13 @@ public class rightattackScript : StateMachineBehaviour
         {
             check = true;
 
-            animator.SetTrigger("idle");
+            animator.SetBool("idle", true);
 
         }
         if (waitTime >= maxWaitTime)
         {
             waitTime = 0.0f;
-            animator.SetTrigger("idle");
+            animator.SetBool("idle", true);
 
         }
     }
@@ -50,6 +51,7 @@ public class rightattackScript : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
+        animator.SetBool("idle", false);
         animator.SetBool("attacknow", false);
         animator.SetBool("collision", false);
         animator.SetFloat("speed", 1.0f);
