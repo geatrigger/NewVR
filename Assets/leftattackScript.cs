@@ -17,8 +17,8 @@ public class leftattackScript : StateMachineBehaviour
         collision = false;
         waitTime = 0.0f;
         waitTime2 = 0.0f;
+        animator.SetBool("collision", false);
 
-        animator.SetBool("idle", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

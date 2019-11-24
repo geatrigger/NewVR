@@ -131,6 +131,7 @@ public class IdleScript : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         waitTime = 0.0f;
+        animator.SetBool("attacknow", false);
         animator.SetBool("idle", false);
     }
 
