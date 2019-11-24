@@ -5,14 +5,14 @@ using Valve.VR;
 
 public class PickWeapon : MonoBehaviour
 {
-    Hand hand;
+    public Hand hand;
     public SteamVR_Input_Sources handType;
     public SteamVR_Behaviour_Pose controllerPose;
     public SteamVR_Action_Boolean grabAction;
     private GameObject collidingObject;
     private GameObject objectInHand;
     Sword sword;
-    void Start()
+    void Awake()
     {
         switch(handType)
         {
@@ -26,6 +26,7 @@ public class PickWeapon : MonoBehaviour
                 Debug.LogError("No Hand in GameObject");
                 break;
         }
+        hand.setPickWeapon(this);
     }
     private void SetCollidingObject(Collider col)
     {
@@ -42,6 +43,7 @@ public class PickWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(sword);
         if (grabAction.GetLastStateDown(handType))
         {
             if (collidingObject)
@@ -53,7 +55,7 @@ public class PickWeapon : MonoBehaviour
         {
             if (objectInHand)
             {
-                ReleaseObject();
+                sword.OffGrap();
             }
         }
 
@@ -83,8 +85,8 @@ public class PickWeapon : MonoBehaviour
         collidingObject = null;
 
 
-        var joint = AddFixedJoint();
-        joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
+        //var joint = AddFixedJoint();
+        //joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
 
         sword = objectInHand.GetComponent<Sword>();
         sword.OnGrap(hand);
@@ -99,16 +101,15 @@ public class PickWeapon : MonoBehaviour
         return fx;
     }
 
-    private void ReleaseObject()
+    public void ReleaseObject()
     {
-        if (GetComponent<FixedJoint>())
+        /*if (GetComponent<FixedJoint>())
         {
             GetComponent<FixedJoint>().connectedBody = null;
             Destroy(GetComponent<FixedJoint>());
-            objectInHand.GetComponent<Rigidbody>().velocity = controllerPose.GetVelocity();
-            objectInHand.GetComponent<Rigidbody>().angularVelocity = controllerPose.GetAngularVelocity();
-        }
-        sword.OffGrap();
+            //objectInHand.GetComponent<Rigidbody>().velocity = controllerPose.GetVelocity();
+            //objectInHand.GetComponent<Rigidbody>().angularVelocity = controllerPose.GetAngularVelocity();
+        }*/
         sword = null;
         objectInHand = null;
     }

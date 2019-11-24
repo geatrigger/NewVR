@@ -16,6 +16,7 @@ public class Sword : MonoBehaviour
     Vector3 prevPosition;
     Quaternion prevRotation;
     public Hand nowHand;
+    public PickWeapon nowWeapon;
     private Rigidbody rigid;
     bool isGrapped;
     Vector3 velocity;
@@ -47,14 +48,16 @@ public class Sword : MonoBehaviour
     private void Update()
     {
 
-        Debug.Log(isGrapped);
+        Debug.Log(nowHand);
+        Debug.Log(nowWeapon);
+        Debug.Log(transform.position);
         if (isGrapped == true)
         {
             //Debug.Log(weaponObject.transform.position);
             gameObject.transform.position = nowHand.controller.transform.position;
             gameObject.transform.rotation = nowHand.controller.transform.rotation * Quaternion.Euler(90, 0, 0);
-            transform.position = nowHand.controller.transform.position;
-            transform.rotation = nowHand.controller.transform.rotation * Quaternion.Euler(90, 0, 0);
+            //transform.position = nowHand.controller.transform.position;
+            //transform.rotation = nowHand.controller.transform.rotation * Quaternion.Euler(90, 0, 0);
             velocity = (gameObject.transform.position - prevPosition) * (Time.deltaTime * 90) * 100;
             //Quaternion deltaRot = gameObject.transform.rotation *= tmpRotation * Quaternion.Inverse(prevRotation);
             if (!isShield && velocity.magnitude > Player.maxVelFactor / swordWeight)
@@ -81,14 +84,15 @@ public class Sword : MonoBehaviour
     }
     public void OnGrap(Hand hand)
     {
-        gameObject.transform.position = hand.controller.transform.position;
-        gameObject.transform.rotation = hand.controller.transform.rotation * Quaternion.Euler(90, 0, 0);
+        nowHand = hand;
+        nowWeapon = hand.getPickWeapon();
+        gameObject.transform.position = nowHand.controller.transform.position;
+        gameObject.transform.rotation = nowHand.controller.transform.rotation * Quaternion.Euler(90, 0, 0);
         prevPosition = gameObject.transform.position;
         prevRotation = gameObject.transform.rotation;
         //rigid.isKinematic = true;
         isGrapped = true;
         rigid.useGravity = false;
-        nowHand = hand;
         Debug.Log("OnGrap!" + nowHand);
         //coroutine = restart(2.0f);
     }
@@ -102,6 +106,7 @@ public class Sword : MonoBehaviour
     }
     public void OffGrap()
     {
+        nowWeapon.ReleaseObject();
         Debug.Log("OffGrap!" + nowHand);
         nowHand = null;
         isGrapped = false;

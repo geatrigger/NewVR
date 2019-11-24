@@ -7,6 +7,7 @@ public class Hand : MonoBehaviour
 {
     SteamVR_Input_Sources hand;
     public SteamVR_Action_Vibration vibration;
+    private PickWeapon pickWeapon;
     public GameObject controller;
     public bool isRight;
     public string weapon;
@@ -16,6 +17,14 @@ public class Hand : MonoBehaviour
     private IEnumerator coroutine;
     public bool isShield;
 
+    public void setPickWeapon(PickWeapon p)
+    {
+        pickWeapon = p;
+    }
+    public PickWeapon getPickWeapon()
+    {
+        return pickWeapon;
+    }
     public void vibrateHand()
     {
         vibration.Execute(0, 0.2f, 100, 1f, hand);
