@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Valve.VR;
 
 public class Hand : MonoBehaviour
 {
+    public Image myImage;
+
     Animator enemyAnimator;
     SteamVR_Input_Sources hand;
     public SteamVR_Action_Vibration vibration;
@@ -47,6 +50,8 @@ public class Hand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        //myImage.enabled = false;
         enemyAnimator = GameObject.Find("enemy").GetComponent<Animator>();
         enemyStrength = 1f; // will be changed in selection scene
         enemyGrip = 1f; // will be changed in selection scene
@@ -222,4 +227,51 @@ public class Hand : MonoBehaviour
             
         }
     }
+
+    IEnumerator fadeIn()
+    {
+        Color fadeColor = myImage.color;
+        fadeColor.a = 1.0f;
+        float time = 0f;
+        while (fadeColor.a > 0.0f)
+        {
+            time += Time.deltaTime;
+            fadeColor.a = Mathf.Lerp(1.0f, 0.0f, time*2.0f);
+            myImage.color = fadeColor;
+            yield return null;
+        }
+        fadeColor.a = 1.0f;
+        myImage.color = fadeColor;
+        myImage.enabled = false;
+    }
+    IEnumerator fadeOut()
+    {
+        Color fadeColor = myImage.color;
+        fadeColor.a = 0.0f;
+        float time = 0f;
+        while (fadeColor.a < 1.0f)
+        {
+            time += Time.deltaTime;
+            fadeColor.a = Mathf.Lerp(0.0f, 1.0f, time * 2.0f);
+            myImage.color = fadeColor;
+            yield return null;
+        }
+        fadeColor.a = 0.0f;
+        myImage.color = fadeColor;
+        //myImage.enabled = false; //페이드아웃 하고 화면 까만 상태 유지하려면 이거 키면 됨.
+        //yield return new WaitForSeconds(2.0f);
+
+        //StartCoroutine("fadeIn");
+    }
+    IEnumerator fadeInOut()
+    {
+        myImage.enabled = true;
+
+        StartCoroutine("fadeOut");
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine("fadeIn");
+    }
+
+
+
 }
