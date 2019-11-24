@@ -5,6 +5,8 @@ using UnityEngine;
 public class leftattackScript : StateMachineBehaviour
 {
     float waitTime = 0.0f;
+
+    float waitTime2 = 0.0f;
     float maxWaitTime = 2.30f;
     bool collision;
     bool check = true;
@@ -14,21 +16,23 @@ public class leftattackScript : StateMachineBehaviour
         check = true;
         collision = false;
         waitTime = 0.0f;
+        waitTime2 = 0.0f;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         waitTime += Time.deltaTime;
+        waitTime2 += Time.deltaTime;
         collision = animator.GetBool("collision");
 
         if(collision == true && check == true)
         {
             check = false;
-            waitTime = 0.0f;
+            waitTime2 = 0.0f;
             animator.SetFloat("speed", 0.0f);
         }
-        if (check == false && waitTime > 0.2f)
+        if (check == false && waitTime2 > 0.2f)
         {
             check = true;
             
