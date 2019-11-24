@@ -55,7 +55,7 @@ public class PickWeapon : MonoBehaviour
         {
             if (objectInHand)
             {
-                sword.OffGrap();
+                //sword.OffGrap();
             }
         }
 
