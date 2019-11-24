@@ -44,13 +44,14 @@ public class Sword : MonoBehaviour
         enemySword = GameObject.Find("enemysword");
         musicPlayer = musicPlayerObject.GetComponent<AudioManager>();
         StartCoroutine(restart(2.0f));
+        StartCoroutine(setCollisionTime(2.0f));
     }
     private void Update()
     {
 
-        Debug.Log(nowHand);
-        Debug.Log(nowWeapon);
-        Debug.Log(transform.position);
+        //Debug.Log(nowHand);
+        //Debug.Log(nowWeapon);
+        //Debug.Log(transform.position);
         if (isGrapped == true)
         {
             //Debug.Log(weaponObject.transform.position);
@@ -112,15 +113,16 @@ public class Sword : MonoBehaviour
         isGrapped = false;
         rigid.isKinematic = false;
         rigid.useGravity = true;
+        StartCoroutine(restart(2.0f));
     }
     private IEnumerator setCollisionTime(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         ScoreManager.canCollision = true;
     }
-    public void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("trigger");
+        Debug.Log("trigger");
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && ScoreManager.canCollision)
         {
             if (enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("leftguard") ||

@@ -30,7 +30,7 @@ public class PickWeapon : MonoBehaviour
     }
     private void SetCollidingObject(Collider col)
     {
-        Debug.Log(col);
+        //Debug.Log(col);
         if (col.gameObject.layer != LayerMask.NameToLayer("PlayerWeapon"))
             return;
         if (collidingObject || !col.transform.parent.GetComponent<Rigidbody>())
@@ -43,7 +43,7 @@ public class PickWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(sword);
+        //Debug.Log(sword);
         if (grabAction.GetLastStateDown(handType))
         {
             if (collidingObject)
