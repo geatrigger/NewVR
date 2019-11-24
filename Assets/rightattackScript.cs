@@ -34,14 +34,13 @@ public class rightattackScript : StateMachineBehaviour
         }
         if (check == false && waitTime2 > 0.2f)
         {
-            check = true;
+            waitTime2 = -1000.0f;
 
             animator.SetBool("idle", true);
 
         }
         if (waitTime >= maxWaitTime)
         {
-            waitTime = 0.0f;
             animator.SetBool("idle", true);
 
         }
@@ -50,8 +49,10 @@ public class rightattackScript : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
-        animator.SetBool("idle", false);
+        check = true;
+        waitTime = 0.0f;
+        waitTime2 = 0.0f;
+        animator.SetInteger("attack", 3);
         animator.SetBool("attacknow", false);
         animator.SetBool("collision", false);
         animator.SetFloat("speed", 1.0f);

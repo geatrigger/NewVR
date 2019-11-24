@@ -58,7 +58,7 @@ public class leftattackScript : StateMachineBehaviour
         check = true;
         waitTime = 0.0f;
         waitTime2 = 0.0f;
-
+        animator.SetInteger("attack", 3);
         animator.SetBool("attacknow", false);
         animator.SetBool("collision", false);
         animator.SetFloat("speed", 1.0f);

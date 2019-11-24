@@ -8,7 +8,7 @@ public class upattackScript : StateMachineBehaviour
     float waitTime2 = 0.0f;
     float maxWaitTime = 1.74f;
     bool collision;
-    bool check = true;
+    bool check;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -34,17 +34,13 @@ public class upattackScript : StateMachineBehaviour
         }
         if (check == false && waitTime2 > 0.2f)
         {
-            check = true;
-
-            animator.SetBool("collision", false);
-            animator.SetFloat("speed", 1.0f);
+            waitTime2 = -1000.0f;
             animator.SetBool("idle", true);
 
         }
 
         if (waitTime >= maxWaitTime)
         {
-            waitTime = 0.0f;
             animator.SetBool("idle", true);
 
         }
@@ -54,7 +50,10 @@ public class upattackScript : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
-        animator.SetBool("idle", false);
+        check = true;
+        waitTime = 0.0f;
+        waitTime2 = 0.0f;
+        animator.SetInteger("attack", 3);
         animator.SetBool("attacknow", false);
         animator.SetBool("collision", false);
         animator.SetFloat("speed", 1.0f);
