@@ -6,21 +6,33 @@ using Valve.VR;
 public class PickWeapon : MonoBehaviour
 {
     Hand hand;
-    void Start()
-    {
-        hand = this.GetComponent<Hand>();
-    }
     public SteamVR_Input_Sources handType;
     public SteamVR_Behaviour_Pose controllerPose;
     public SteamVR_Action_Boolean grabAction;
     private GameObject collidingObject;
     private GameObject objectInHand;
     Sword sword;
+    void Start()
+    {
+        switch(handType)
+        {
+            case SteamVR_Input_Sources.LeftHand:
+                hand = GameObject.Find("leftSword").GetComponent<Hand>();
+                break;
+            case SteamVR_Input_Sources.RightHand:
+                hand = GameObject.Find("rightSword").GetComponent<Hand>();
+                break;
+            default:
+                Debug.LogError("No Hand in GameObject");
+                break;
+        }
+    }
     private void SetCollidingObject(Collider col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Env"))
+        Debug.Log(col);
+        if (col.gameObject.layer != LayerMask.NameToLayer("PlayerWeapon"))
             return;
-        if (collidingObject || !col.transform.parent.GetComponent<Rigidbody>() || col.gameObject.layer != LayerMask.NameToLayer("PlayerWeapon"))
+        if (collidingObject || !col.transform.parent.GetComponent<Rigidbody>())
         {
             return;
         }
