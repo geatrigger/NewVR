@@ -32,7 +32,7 @@ public class frontguardScript : StateMachineBehaviour
         bool attacknow = animator.GetBool("attacknow");
         if (attacknow == true)
         {
-            animator.SetTrigger("idle");
+            animator.SetBool("idle", true);
         }
         sword1pos = Sword1.transform.position;
         sword2pos = Sword2.transform.position; // x,y is screen, z is depth
@@ -93,17 +93,18 @@ public class frontguardScript : StateMachineBehaviour
         {
             //attack
             animator.SetInteger("guard", 4); // don't guard
-            animator.SetTrigger("idle");
+            animator.SetBool("idle", true);
 
         }
 
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+
+        animator.SetBool("idle", false);
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

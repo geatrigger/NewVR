@@ -5,34 +5,39 @@ using UnityEngine;
 public class leftattackScript : StateMachineBehaviour
 {
     float waitTime = 0.0f;
+
+    float waitTime2 = 0.0f;
     float maxWaitTime = 2.30f;
     bool collision;
-    bool check = true;
+    bool check;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         check = true;
         collision = false;
         waitTime = 0.0f;
+        waitTime2 = 0.0f;
+        animator.SetBool("collision", false);
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         waitTime += Time.deltaTime;
+        waitTime2 += Time.deltaTime;
         collision = animator.GetBool("collision");
 
         if(collision == true && check == true)
         {
             check = false;
-            waitTime = 0.0f;
+            waitTime2 = 0.0f;
             animator.SetFloat("speed", 0.0f);
         }
-        if (check == false && waitTime > 0.2f)
+        if (check == false && waitTime2 > 0.2f)
         {
-            check = true;
-            
-            animator.SetTrigger("idle");
+            waitTime2 = -1000.0f;
+            animator.SetBool("idle", true);
 
         }
 
@@ -42,16 +47,18 @@ public class leftattackScript : StateMachineBehaviour
 
         if (waitTime >= maxWaitTime)
         {
-            waitTime = 0.0f;
-            animator.SetTrigger("idle");
-            
+            animator.SetBool("idle", true);
+
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        check = true;
+        waitTime = 0.0f;
+        waitTime2 = 0.0f;
+        animator.SetInteger("attack", 3);
         animator.SetBool("attacknow", false);
         animator.SetBool("collision", false);
         animator.SetFloat("speed", 1.0f);

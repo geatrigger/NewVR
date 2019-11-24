@@ -10,21 +10,24 @@ public class HitScript : StateMachineBehaviour
         int hp = animator.GetInteger("hp");
         hp--;
         animator.SetInteger("hp", hp);
-        if (hp <= 0)
+
+        if (hp > 0)
+        {
+            animator.SetBool("idle", true);
+        }
+        else if (hp <= 0)
         {
             animator.SetTrigger("death");
         }
         else
-        {
-            animator.SetTrigger("idle");
-        }
+            animator.SetBool("idle", true);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        animator.SetBool("idle", true);
+    }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
