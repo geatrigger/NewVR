@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4741669643296733328}
   - component: {fileID: 4741669643290234032}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Blade Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4741669643296733330}
   - component: {fileID: 4741669643290234034}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Guard Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 4741669643294440050}
   - component: {fileID: 9019296364875529867}
   - component: {fileID: -2063285177034335752}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sabre w_ Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4741669643296733334}
   - component: {fileID: 4741669643290234038}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Handle Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

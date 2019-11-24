@@ -13,7 +13,6 @@ public class Hand : MonoBehaviour
 
     public GameObject[] weapons;
     public GameObject weaponObject;
-    bool isGrapping;
     private IEnumerator coroutine;
     public bool isShield;
 
@@ -76,34 +75,6 @@ public class Hand : MonoBehaviour
     {
         gameObject.transform.position = controller.transform.position;
         gameObject.transform.rotation = controller.transform.rotation * Quaternion.Euler(90, 0, 0);
-        if (isGrapping == true)
-        {
-            //Debug.Log(weaponObject.transform.position);
-            /*gameObject.transform.position = controller.transform.position;
-            gameObject.transform.rotation = controller.transform.rotation * Quaternion.Euler(90, 0, 0);
-            weaponObject.transform.position = gameObject.transform.position;
-            weaponObject.transform.rotation = gameObject.transform.rotation;
-            velocity = (gameObject.transform.position - prevPosition) * (Time.deltaTime * 90) * 100;*/
-            //Quaternion deltaRot = gameObject.transform.rotation *= tmpRotation * Quaternion.Inverse(prevRotation);
-            /*if (!isShield && velocity.magnitude > maxVelFactor / swordWeight)
-            {
-                //Debug.Log("velocity:" + velocity.magnitude + " maxVel/weight:" + maxVel / swordWeight + " playerStrength*weight" + playerStrength * swordWeight);
-
-                enemyAnimator.SetBool("attacknow", true);
-                isGrapping = false;
-                rigid.isKinematic = false;
-                rigid.useGravity = true;
-                rigid.velocity = velocity;
-                //StartCoroutine(coroutine);
-            }
-            prevPosition = gameObject.transform.position;
-            prevRotation = gameObject.transform.rotation;*/
-        }
-        else
-        {
-            /*prevPosition = controller.transform.position;
-            prevRotation = controller.transform.rotation * Quaternion.Euler(90, 0, 0);*/
-        }
         //최대속도를 유지해서 따라가는 것
         /*
         Quaternion angle = gameObject.transform.rotation * Quaternion.Euler(-90, 0, 0) * Quaternion.Inverse(controller.transform.rotation);

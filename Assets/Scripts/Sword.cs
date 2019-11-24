@@ -23,8 +23,9 @@ public class Sword : MonoBehaviour
     private IEnumerator restart(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        gameObject.transform.position = nowHand.controller.transform.position;
-        gameObject.transform.rotation = nowHand.controller.transform.rotation * Quaternion.Euler(90, 0, 0);
+        gameObject.transform.position = initHand.controller.transform.position;
+        gameObject.transform.rotation = initHand.controller.transform.rotation * Quaternion.Euler(90, 0, 0);
+        rigid.velocity = new Vector3(0, 0, 0);
         OnGrap(initHand);
         //rigid.isKinematic = true;
         //isGrapped = true;
@@ -41,7 +42,6 @@ public class Sword : MonoBehaviour
         musicPlayerObject = GameObject.Find("AudioSystem");
         enemySword = GameObject.Find("enemysword");
         musicPlayer = musicPlayerObject.GetComponent<AudioManager>();
-        rigid.velocity = new Vector3(0, 0, 0);
         StartCoroutine(restart(2.0f));
     }
     private void Update()
@@ -62,10 +62,7 @@ public class Sword : MonoBehaviour
                 //Debug.Log("velocity:" + velocity.magnitude + " maxVel/weight:" + maxVel / swordWeight + " playerStrength*weight" + playerStrength * swordWeight);
 
                 enemyAnimator.SetBool("attacknow", true);
-                isGrapped = false;
-                rigid.isKinematic = false;
-                rigid.useGravity = true;
-                rigid.velocity = velocity;
+                OffGrap(false);
                 //StartCoroutine(coroutine);
             }
             prevPosition = gameObject.transform.position;
@@ -73,10 +70,9 @@ public class Sword : MonoBehaviour
         }
         else
         {
-            prevPosition = nowHand.controller.transform.position;
-            prevRotation = nowHand.controller.transform.rotation * Quaternion.Euler(90, 0, 0);
+            prevPosition = this.transform.position;
+            prevRotation = this.transform.rotation * Quaternion.Euler(90, 0, 0);
         }
-        Debug.Log(nowHand.controller.transform.position);
     }
     public void OnFirstGrap(Hand hand)
     {
@@ -93,15 +89,24 @@ public class Sword : MonoBehaviour
         isGrapped = true;
         rigid.useGravity = false;
         nowHand = hand;
+        Debug.Log("OnGrap!" + nowHand);
         //coroutine = restart(2.0f);
     }
-    private void OffGrap()
+    public void OffGrap(bool col)
     {
+        OffGrap();
+        if (col)
+            rigid.velocity = -velocity;
+        else
+            rigid.velocity = velocity;
+    }
+    public void OffGrap()
+    {
+        Debug.Log("OffGrap!" + nowHand);
+        nowHand = null;
         isGrapped = false;
         rigid.isKinematic = false;
         rigid.useGravity = true;
-        rigid.velocity = -velocity;
-
     }
     private IEnumerator setCollisionTime(float waitTime)
     {
@@ -151,14 +156,14 @@ public class Sword : MonoBehaviour
                     musicPlayer.PlaySound(musicPlayer.defend);
                     Debug.Log("guard!");
                     enemyAnimator.SetBool("attacknow", true);
-                    OffGrap();
+                    OffGrap(true);
                     //StartCoroutine(coroutine);
                 }
                 else if (!isShield && ScoreManager.enemySwordVelocity * ScoreManager.enemyStrength > Player.Grip * swordWeight)
                 {
                     musicPlayer.PlaySound(musicPlayer.swordToSword);
                     enemyAnimator.SetBool("attacknow", true);
-                    OffGrap();
+                    OffGrap(true);
                     //StartCoroutine(coroutine);
                 }
                 else if (isShield || velocity.magnitude * Player.Strength > ScoreManager.enemyGrip * ScoreManager.enemySwordWeight)
@@ -179,7 +184,7 @@ public class Sword : MonoBehaviour
                 {
                     musicPlayer.PlaySound(musicPlayer.swordToSword);
                     enemyAnimator.SetBool("attacknow", true);
-                    OffGrap();
+                    OffGrap(true);
                     //StartCoroutine(coroutine);
                 }
             }

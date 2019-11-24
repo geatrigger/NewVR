@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4117802289323457310}
   - component: {fileID: 4272405904868504646}
   - component: {fileID: -7260822821169292353}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Rapier w_ Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4117802289321687546}
   - component: {fileID: 4117802289319251418}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cross Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4117802289321687548}
   - component: {fileID: 4117802289319251420}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Blade Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4117802289321687550}
   - component: {fileID: 4117802289319251422}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Handle Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

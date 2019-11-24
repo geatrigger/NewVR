@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4054014567081287800}
   - component: {fileID: 4054014567083578456}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Blade Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4054014567081287802}
   - component: {fileID: 4054014567083578458}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Handle Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4054014567081287804}
   - component: {fileID: 4054014567083578462}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cross Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 4054014567079387802}
   - component: {fileID: 7160852250304463842}
   - component: {fileID: 8331413765849537005}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Broadsword w_ Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
