@@ -5,6 +5,7 @@ using Valve.VR;
 
 public class Hand : MonoBehaviour
 {
+
     Animator enemyAnimator;
     SteamVR_Input_Sources hand;
     public SteamVR_Action_Vibration vibration;
@@ -49,6 +50,7 @@ public class Hand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         enemyAnimator = GameObject.Find("enemy").GetComponent<Animator>();
         enemyStrength = 1f; // will be changed in selection scene
         enemyGrip = 1f; // will be changed in selection scene
@@ -234,4 +236,7 @@ public class Hand : MonoBehaviour
             
         }
     }
+
+
+
 }
