@@ -163,7 +163,8 @@ public class Sword : MonoBehaviour
                     musicPlayer.PlaySound(musicPlayer.defend);
                     Debug.Log("guard!");
                     enemyAnimator.SetBool("attacknow", true);
-                    OffGrap(true);
+                    if(!isShield)
+                        OffGrap(true);
                     //StartCoroutine(coroutine);
                 }
                 else if (!isShield && ScoreManager.enemySwordVelocity * ScoreManager.enemyStrength > Player.Grip * swordWeight)

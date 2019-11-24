@@ -16,7 +16,7 @@ public class IdleScript : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        attackTIme = 2.0f;//changed by 성격
+        attackTIme = 1.0f;//changed by 성격
         waitTime = 0.0f;
         weaponSystem = GameObject.Find("weaponsystem");
         Hand[] hand = weaponSystem.GetComponentsInChildren<Hand>();
