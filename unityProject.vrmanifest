@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.newvr.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\YEU\\Documents\\GitHub\\NewVR\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "C:\\Users\\gichan\\Documents\\NewVR\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "NewVR [Testing]"

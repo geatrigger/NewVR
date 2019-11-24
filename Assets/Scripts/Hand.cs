@@ -57,6 +57,8 @@ public class Hand : MonoBehaviour
         {
             case "Shield":
                 weaponObject = Instantiate(weapons[4]);
+                weaponObject.GetComponent<Sword>().isShield = true;
+
                 break;
             case "Sabre":
                 weaponObject = Instantiate(weapons[3]);

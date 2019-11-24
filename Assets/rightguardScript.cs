@@ -16,8 +16,8 @@ public class rightguardScript : StateMachineBehaviour
         Hand[] hand = weaponSystem.GetComponentsInChildren<Hand>();
         Sword1 = hand[0].weaponObject;
         Sword2 = hand[1].weaponObject;
-        isShield1 = hand[0].isShield;
-        isShield2 = hand[1].isShield;
+        isShield1 = Sword1.GetComponent<Sword>().isShield;
+        isShield2 = Sword2.GetComponent<Sword>().isShield;
         attackDefZ = 0.6f;
         dirx = 0.25f; diry = 1.3f;
     }

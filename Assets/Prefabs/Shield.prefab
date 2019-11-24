@@ -154,4 +154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8273b8085af805446ad54c63186ec115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hand: {fileID: 0}
+  swordWeight: 0
+  isShield: 0
+  enemySword: {fileID: 0}
+  enemySwordrigid: {fileID: 4199415466975976364, guid: f8a9d395fdbdf6745858fcb0e890fe03,
+    type: 3}
+  nowHand: {fileID: 0}
+  nowWeapon: {fileID: 0}
