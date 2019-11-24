@@ -113,7 +113,7 @@ public class Sword : MonoBehaviour
         isGrapped = false;
         rigid.isKinematic = false;
         rigid.useGravity = true;
-        StartCoroutine(restart(2.0f));
+        //StartCoroutine(restart(2.0f));
     }
     private IEnumerator setCollisionTime(float waitTime)
     {
