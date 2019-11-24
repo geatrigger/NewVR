@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class FightingUI : MonoBehaviour
 {
-    public Text scoreText;
+    public Text scoreText, resultText;
+    public GameObject enemy, player, gameoverFloor;
     private static int p_score, e_score;
+    public GameObject cameraRig;
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,6 +23,26 @@ public class FightingUI : MonoBehaviour
 
         scoreText.text = text;
         
+        if(p_score >= 8)
+        {
+            text = "You Win!";
+            resultText.text = text;
+            resultText.color = new Color(0,0,255);
+            cameraRig.transform.position = new Vector3(0.0f, 3.0f, 5.0f);
+            player.SetActive(false);
+            enemy.SetActive(false);
+            gameoverFloor.SetActive(true);
+        }
+        else if(e_score >= 8){
+            text = "You Lose!";
+            resultText.text = text;
+            resultText.color = new Color(255, 0, 0);
+            cameraRig.transform.position = new Vector3(0.0f, 3.0f, 5.0f);
+            player.SetActive(false);
+            enemy.SetActive(false);
+            gameoverFloor.SetActive(true);
+        }
+
     }
 
     public static void setScore(int p, int e)
