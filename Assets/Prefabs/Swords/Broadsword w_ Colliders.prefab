@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4054014567081287800}
   - component: {fileID: 4054014567083578456}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Blade Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4054014567081287802}
   - component: {fileID: 4054014567083578458}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Handle Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4054014567081287804}
   - component: {fileID: 4054014567083578462}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cross Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 4054014567079387802}
   - component: {fileID: 7160852250304463842}
   - component: {fileID: 8331413765849537005}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Broadsword w_ Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,4 +243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8273b8085af805446ad54c63186ec115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hand: {fileID: 0}
+  swordWeight: 2
+  isShield: 0
+  enemySword: {fileID: 0}
+  enemySwordrigid: {fileID: 4199415466975976364, guid: f8a9d395fdbdf6745858fcb0e890fe03,
+    type: 3}
+  nowHand: {fileID: 0}

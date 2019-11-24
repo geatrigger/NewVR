@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     public Image myImage;
     public GameObject musicPlayerObject;
     AudioManager musicPlayer;
+    public static float Strength = 1f;
+    public static float Grip = 1f;
+    public static float maxRot = 1f, maxVelFactor = 5f;
     // Start is called before the first frame update
     void Start()
     {

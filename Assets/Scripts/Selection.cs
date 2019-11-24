@@ -34,7 +34,7 @@ public class Selection : MonoBehaviour
         }
         else if(time != 0)
         {
-            timeText.text = time.ToString() + "초 후 시작합니다.";
+            timeText.text = (5 - time).ToString("F1") + "초 후 시작합니다.";
         }
         if (nameLH == null)
             nameLH = "Hand";
