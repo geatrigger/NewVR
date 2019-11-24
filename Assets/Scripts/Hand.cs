@@ -25,9 +25,11 @@ public class Hand : MonoBehaviour
     float swordWeight, playerStrength, playerGrip;
     float enemyStrength, enemyGrip, enemySwordWeight, enemySwordVelocity;
     public bool isShield;
-
     public GameObject enemySword;
     public GameObject enemySwordrigid;
+    public GameObject musicPlayerObject;
+    AudioManager musicPlayer;
+
     private IEnumerator restart(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
@@ -99,6 +101,7 @@ public class Hand : MonoBehaviour
         weaponObject.transform.position = gameObject.transform.position;
         weaponObject.transform.rotation = gameObject.transform.rotation;
         canCollision = true;
+        musicPlayer = musicPlayerObject.GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -159,9 +162,11 @@ public class Hand : MonoBehaviour
                 enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("frontguard"))
             {
                 Debug.Log("guard!");
+                musicPlayer.PlaySound(musicPlayer.defend);
             }
             else if(!isShield)
             {
+                musicPlayer.PlaySound(musicPlayer.swordToBody);
                 enemyAnimator.SetTrigger("hit");
                 FightingUI.addScore(true);
                 //collision.gameObject.GetComponentInParent<Animator>().SetTrigger("Hit");
@@ -184,6 +189,7 @@ public class Hand : MonoBehaviour
                 enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("rightguard") ||
                 enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("frontguard"))
                 {
+                    musicPlayer.PlaySound(musicPlayer.defend);
                     Debug.Log("guard!");
                     enemyAnimator.SetBool("attacknow", true);
                     isGrapped = false;
@@ -194,6 +200,7 @@ public class Hand : MonoBehaviour
                 }
                 else if (!isShield && enemySwordVelocity * enemyStrength > playerGrip * swordWeight)
                 {
+                    musicPlayer.PlaySound(musicPlayer.swordToSword);
                     enemyAnimator.SetBool("attacknow", true);
                     isGrapped = false;
                     rigid.isKinematic = false;
@@ -203,6 +210,10 @@ public class Hand : MonoBehaviour
                 }
                 else if (isShield || velocity.magnitude * playerStrength > enemyGrip * enemySwordWeight)
                 {
+                    if(isShield)
+                        musicPlayer.PlaySound(musicPlayer.defend);
+                    else
+                        musicPlayer.PlaySound(musicPlayer.swordToSword);
                     enemySword.GetComponent<MeshRenderer>().enabled = false;
                     enemySword.GetComponent<BoxCollider>().enabled = false;
                     GameObject flyingSword = Instantiate(enemySwordrigid);
@@ -213,6 +224,7 @@ public class Hand : MonoBehaviour
                 }
                 else if (!isShield && enemySwordVelocity * enemyStrength <= playerGrip * swordWeight && velocity.magnitude * playerStrength <= enemyGrip * enemySwordWeight)
                 {
+                    musicPlayer.PlaySound(musicPlayer.swordToSword);
                     enemyAnimator.SetBool("attacknow", true);
                     isGrapped = false;
                     rigid.isKinematic = false;

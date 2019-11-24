@@ -7,10 +7,13 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public Image myImage;
+    public GameObject musicPlayerObject;
+    AudioManager musicPlayer;
     // Start is called before the first frame update
     void Start()
     {
         myImage.enabled = false;
+        musicPlayer = musicPlayerObject.GetComponent<AudioManager>();
 
     }
 
@@ -27,6 +30,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Weapon"))
         {
             //Debug.Log("ENEMY HIT PLAYER");
+            musicPlayer.PlaySound(musicPlayer.swordToBody);
             FightingUI.addScore(false);
             StartCoroutine("fadeInOut");
         }
